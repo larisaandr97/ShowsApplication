@@ -6,6 +6,8 @@ import java.util.*;
 public class Shows {
     protected String name;
     protected String data;
+    protected String hourStart;
+    protected String hourEnd;
     protected String description;
     protected double price;
     protected double priceVIP;
@@ -14,9 +16,11 @@ public class Shows {
     protected int[] seats;
     public Location location;
     public Shows () {}
-    public Shows(String name, String data, String description, double price, double priceVIP, Location location) {
+    public Shows(String name, String data, String hourStart, String hourEnd,String description, double price, double priceVIP, Location location) {
         this.name = name;
         this.data = data;
+        this.hourStart=hourStart;
+        this.hourEnd=hourEnd;
         this.description = description;
         this.price=price;
         this.priceVIP=priceVIP;
@@ -44,6 +48,22 @@ public class Shows {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getHourStart() {
+        return hourStart;
+    }
+
+    public void setHourStart(String hourStart) {
+        this.hourStart = hourStart;
+    }
+
+    public String getHourEnd() {
+        return hourEnd;
+    }
+
+    public void setHourEnd(String hourEnd) {
+        this.hourEnd = hourEnd;
     }
 
     public String getDescription() {

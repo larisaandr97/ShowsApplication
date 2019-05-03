@@ -10,13 +10,13 @@ import java.util.Date;
 public class ConcertDAO {
     private ArrayList<Concert> concertList=new ArrayList<>();
 
-    public void addConcert(ClientService clientService,String name, String data, String description, double price, double priceVIP, String location, boolean inOut, String musicType){
+    public void addConcert(ClientService clientService,String name, String data, String hourStart, String hourEnd,String description, double price, double priceVIP, String location, boolean inOut, String musicType){
         Location locationFound = clientService.getLocationDAO().searchLocation(location);
         if (locationFound==null) {
             System.out.println("Location not found");
             System.exit(0);
         }
-        Concert crt = new Concert(name,data,description,price,priceVIP, locationFound, inOut, musicType);
+        Concert crt = new Concert(name,data,hourStart,hourEnd,description,price,priceVIP, locationFound, inOut, musicType);
         concertList.add(crt);
         /*Shows[] aux = new Concert[concertList.length+1];
         int ok=0;

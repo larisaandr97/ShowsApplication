@@ -3,7 +3,7 @@ package unibuc.Service;
 import unibuc.DAO.*;
 import unibuc.Domain.Client;
 import unibuc.Domain.Location;
-
+import unibuc.Domain.Movie;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -92,16 +92,16 @@ public class ClientService {
 
     }
 
-    public Movie searchMovieInLocation(String locName)
+    public boolean searchMovieInLocation(String locName)
     {
 
         Location locationFound=locationDAO.searchLocation(locName);
         if(locationFound==null)
-        { System.out.println("Location does not exist. "); return null;}
+        { System.out.println("Location does not exist. "); return false;}
         else
         {
-            Movie movie=movieDao.searchMovieInLoc(locName);
-            return movie;
+            boolean moviesFound=movieDao.searchMovieInLoc(locName);
+            return moviesFound;
         }
 
     }
@@ -148,6 +148,12 @@ public class ClientService {
             reservationDAO.addReservationMovie(movie, client, data, noRegTickets, noVIPTickets,resType,ticket);
 
         } else System.out.println("There are not enough available seats at this event");
+
+    }
+
+    public void searchReservationForClient(String name)
+    {
+        Client client=clientDAO.searchClient(name);
 
     }
 

@@ -42,17 +42,19 @@ public class DataManipulation {
                 String[] movieData = line.split(",");
                 String name=movieData[0];
                 String date=movieData[1];
-                String desc=movieData[2];
-                Double price=Double.parseDouble(movieData[3]);
-                Double priceVip=Double.parseDouble(movieData[4]);
-                int noSeats=Integer.parseInt(movieData[5]);
-                String location=movieData[6];
+                String hourStart=movieData[2];
+                String hourEnd=movieData[3];
+                String desc=movieData[4];
+                Double price=Double.parseDouble(movieData[5]);
+                Double priceVip=Double.parseDouble(movieData[6]);
+                int noSeats=Integer.parseInt(movieData[7]);
+                String location=movieData[8];
                 boolean _3D;
-                if(movieData[7]=="1")
+                if(movieData[9]=="1")
                      _3D=true;
                 else _3D=false;
-                String sub=movieData[8];
-                clientService.getMovieDao().addMovie(clientService,name, date, desc, price,priceVip, noSeats,location,_3D,sub);
+                String sub=movieData[10];
+                clientService.getMovieDao().addMovie(clientService,name, date,hourStart,hourEnd, desc, price,priceVip, noSeats,location,_3D,sub);
                 auditService.write_action("read movie", "actions.csv");
             }
 
@@ -83,13 +85,15 @@ public class DataManipulation {
                 String[] concertData = line.split(",");
                 String name=concertData[0];
                 String date=concertData[1];
-                String desc=concertData[2];
-                Double price=Double.parseDouble(concertData[3]);
-                Double priceVip=Double.parseDouble(concertData[4]);
-                String location=concertData[5];
-                Boolean inOut=Boolean.parseBoolean(concertData[6]);
-                String musicType=concertData[7];
-                clientService.getConcertDAO().addConcert(clientService,name, date, desc, price,priceVip,location,inOut,musicType);
+                String hourStart=concertData[2];
+                String hourEnd=concertData[3];
+                String desc=concertData[4];
+                Double price=Double.parseDouble(concertData[5]);
+                Double priceVip=Double.parseDouble(concertData[6]);
+                String location=concertData[7];
+                Boolean inOut=Boolean.parseBoolean(concertData[8]);
+                String musicType=concertData[9];
+                clientService.getConcertDAO().addConcert(clientService,name, date,hourStart,hourEnd, desc, price,priceVip,location,inOut,musicType);
                 auditService.write_action("read movie", "actions.csv");
             }
 
@@ -124,7 +128,7 @@ public class DataManipulation {
                 int noSeatsAvail=Integer.parseInt(locData[2]);
                 int noSeatsVIP=Integer.parseInt(locData[3]);
                 String eventType=locData[4];
-                clientService.getLocationDAO().addLocation(clientService,locName, address,noSeatsAvail,noSeatsVIP,eventType);
+                clientService.getLocationDAO().addLocation(locName, address,noSeatsAvail,noSeatsVIP,eventType);
                 auditService.write_action("read location", "actions.csv");
             }
 
@@ -163,6 +167,42 @@ public class DataManipulation {
                 String password=clientData[6];
                 clientService.getClientDAO().addClient(username, name, telephone, mailAddress, age,student, password);
                 auditService.write_action("Read an user on: ", "actions.csv");
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void readAdmins(ClientService clientService,String pathName) {
+        BufferedReader br = null;
+        String line = "";
+        try {
+
+            br = new BufferedReader(new FileReader(pathName));
+            while ((line = br.readLine()) != null) {
+
+                // use comma as separator
+                String[] clientData = line.split(",");
+                String username=clientData[0];
+                String name=clientData[1];
+                long telephone=Long.parseLong(clientData[2]);
+                String mailAddress=clientData[3];
+                int age=Integer.parseInt(clientData[4]);
+                boolean student=Boolean.parseBoolean(clientData[5]);
+                String password=clientData[6];
+                clientService.getClientDAO().addClient(username, name, telephone, mailAddress, age,student, password);
+                auditService.write_action("Read an admin on: ", "actions.csv");
             }
 
         } catch (FileNotFoundException e) {

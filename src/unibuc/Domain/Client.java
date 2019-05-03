@@ -6,6 +6,7 @@ public class Client {
 
     private String username;
     private String name;
+    private boolean admin=false;
     protected long telephone;
     protected String mailAddress;
     protected int age;
@@ -44,6 +45,14 @@ public class Client {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public long getTelephone() {
@@ -92,5 +101,23 @@ public class Client {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void displayClientDetails()
+    {
+        System.out.println("Username: ");
+        System.out.print(this.getUsername());
+        System.out.println("Name: ");
+        System.out.print(this.getName());
+        System.out.println("Telephone: ");
+        System.out.print(this.getTelephone());
+        System.out.println("Mail Address: ");
+        System.out.print(this.getMailAddress());
+        System.out.println("Student: ");
+        if(this.isStudent()==true)
+        {
+            System.out.print("Yes");
+        }
+        else System.out.print("No");
     }
 }

@@ -7,8 +7,8 @@ import java.lang.*;
 public class Theatre extends Shows {
     public String type; //de copii sau normal
     public Set <String> distribution;
-    public Theatre(String name, String data, String description, double price, double priceVIP, Location location, Set <String> distribution, String type) {
-        super(name, data, description, price,priceVIP,location);
+    public Theatre(String name, String data,String hourStart, String hourEnd, String description, double price, double priceVIP, Location location, Set <String> distribution, String type) {
+        super(name, data, hourStart,hourEnd,description, price,priceVIP,location);
         this.distribution.addAll(distribution);
         this.type=type;
     }

@@ -57,8 +57,6 @@ public class ClientDAO {
             System.out.println(clientList.get(i).getUsername());
             System.out.print(" ");
             System.out.print(clientList.get(i).getName());
-
-
         }
     }
 }

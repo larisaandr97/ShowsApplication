@@ -9,13 +9,13 @@ import java.util.Date;
 public class TheatreDAO {
     private ArrayList <Theatre> theatreList=new ArrayList<>();
 
-    public void addTheatre(ClientService clientService,String name, String data, String description, double price, int noSeatsAvailable, String location, Set <String> distribution, String type){
+    public void addTheatre(ClientService clientService,String name, String data, String hourStart, String hourEnd, String description, double price, int noSeatsAvailable, String location, Set <String> distribution, String type){
         Location locationFound = clientService.getLocationDAO().searchLocation(location);
         if (locationFound==null) {
             System.out.println("Location not found");
             System.exit(0);
         }
-        Theatre crt = new Theatre(name,data,description,price, noSeatsAvailable,locationFound, distribution, type);
+        Theatre crt = new Theatre(name,data,hourStart,hourEnd,description,price, noSeatsAvailable,locationFound, distribution, type);
 
        /* Theatre[] aux = new Theatre[theatreList.length+1];
         int ok=0;

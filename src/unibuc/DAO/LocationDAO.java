@@ -14,7 +14,7 @@ public class LocationDAO {
         return locationList;
     }
 
-    public void addLocation(ClientService clientService, String locName, String address, int seatsAvailable, int seatsVIP, String eventsType){
+    public void addLocation(String locName, String address, int seatsAvailable, int seatsVIP, String eventsType){
 
         Location loc = new Location(locName,address, seatsAvailable, seatsVIP,eventsType);
         locationList.add(loc);

@@ -16,7 +16,7 @@ public class MovieDAO {
         return movieList;
     }
 
-    public void addMovie(ClientService clientService, String name, String data, String description, double price, double priceVIP, int noSeatsAvailable, String location, boolean _3D, String subType) {
+    public void addMovie(ClientService clientService, String name, String data,String hourStart, String hourEnd, String description, double price, double priceVIP, int noSeatsAvailable, String location, boolean _3D, String subType) {
 
         Location locationFound = clientService.getLocationDAO().searchLocation(location);
         if (locationFound==null) {
@@ -25,7 +25,7 @@ public class MovieDAO {
         }
 
 
-        Movie mov = new Movie(name, data, description, price, priceVIP, locationFound, _3D, subType);
+        Movie mov = new Movie(name, data,hourStart,hourEnd, description, price, priceVIP, locationFound, _3D, subType);
         movieList.add(mov);
        /* Movie[] aux = new Movie[movieList.length + 1];
         int ok = 0;
@@ -66,19 +66,44 @@ public class MovieDAO {
         return null;
     }
 
-    public Movie searchMovieInLoc(String locName)
+    public boolean searchMovieInLoc(String locName)
     {
+        int found=0;
         for (int i = 0; i < movieList.size(); i++)
             if (movieList.get(i).getLocation().getLocName().equals(locName)) {
                 {
                     movieList.get(i).displayDetails();
-                    return movieList.get(i);
+                   // return movieList.get(i);
+                    found=1;
                 }
 
             }
-        return null;
+        if(found==0)
+            { System.out.println("We didn't find any movies in the location you introduced.");
+             return false;
+            }
+        return true;
     }
 
+    public boolean searchMovieOfCategory(String category)
+    {
+        int found=0;
+        for (int i = 0; i < movieList.size(); i++)
+            if (movieList.get(i).getSubType().equals(category)) {
+                {
+                    movieList.get(i).displayDetails();
+                    found=1;
+                  //  return movieList.get(i);
+                }
+
+            }
+        if(found==0)
+        {
+            System.out.println("We haven't found movies of the category you introduced.");
+            return false;
+        }
+        return true;
+    }
 
     public Movie readMovie() {
         Scanner keyboard = new Scanner(System.in);
@@ -86,5 +111,18 @@ public class MovieDAO {
         String nameMovie = keyboard.next();
         Movie movie =searchMovie(nameMovie);
         return movie;
+    }
+
+    public void displayMovies()
+    {
+        System.out.println(movieList.size());
+
+        for(int i=0;i<movieList.size();i++) {
+            System.out.println(movieList.get(i).getName());
+            System.out.print(" ");
+            System.out.print(movieList.get(i).getData());
+            System.out.print(" ");
+            System.out.print(movieList.get(i).getDescription());
+        }
     }
 }

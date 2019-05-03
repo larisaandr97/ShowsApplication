@@ -8,8 +8,8 @@ public class Concert extends Shows {
     protected String musicType;
     public Concert() {}
 
-    public Concert(String name, String data, String description, double price,double priceVIP, Location location, boolean inOut, String musicType) {
-       super(name, data, description, price,priceVIP, location);
+    public Concert(String name, String data,String hourStart, String hourEnd, String description, double price,double priceVIP, Location location, boolean inOut, String musicType) {
+       super(name, data, hourStart,hourEnd,description, price,priceVIP, location);
        this.inOut=inOut;
        this.musicType=musicType;
     }

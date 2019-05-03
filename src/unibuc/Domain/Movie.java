@@ -6,9 +6,9 @@ public class Movie extends Shows {
     protected boolean _3D;
     protected String category;
     protected String subType; //dublat sau subtitrat
-    public Movie(String name, String data, String description, double price, double priceVIP, Location location, boolean _3D, String subType)
+    public Movie(String name, String data,String hourStart, String hourEnd, String description, double price, double priceVIP, Location location, boolean _3D, String subType)
     {
-        super(name, data, description, price,priceVIP,  location);
+        super(name, data,hourStart,hourEnd, description, price,priceVIP,  location);
         this._3D=_3D;
         this.subType=subType;
     }
@@ -23,7 +23,7 @@ public class Movie extends Shows {
             System.out.println("3D");
         }
         else System.out.println("2D");
-        System.out.println(":");
+       // System.out.println(":");
         System.out.println("Type: "+ this.getSubType());
     }
 
