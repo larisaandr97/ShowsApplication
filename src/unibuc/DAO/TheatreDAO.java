@@ -46,14 +46,28 @@ public class TheatreDAO {
             }
         }
     }
-    public void searchTheatre(String name)
+    public Theatre searchTheatre(String name)
     {
 
         for(int i=0;i<theatreList.size();i++)
             if (theatreList.get(i).getName().equals(name)) {
                 theatreList.get(i).displayDetails();
-                break;
+                return theatreList.get(i);
             }
+        return null;
+    }
+
+    public void displayTheatres()
+    {
+        System.out.println(theatreList.size());
+
+        for(int i=0;i<theatreList.size();i++) {
+            System.out.println(theatreList.get(i).getName());
+            System.out.print(" ");
+            System.out.print(theatreList.get(i).getData());
+            System.out.print(" ");
+            System.out.print(theatreList.get(i).getDescription());
+        }
     }
 
 }

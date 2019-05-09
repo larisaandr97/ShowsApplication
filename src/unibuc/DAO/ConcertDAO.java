@@ -46,7 +46,7 @@ public class ConcertDAO {
             }
         }
     }
-    public Shows searchConcert(String name)
+    public Concert searchConcert(String name)
     {
 
         for(int i=0;i<concertList.size();i++)
@@ -56,6 +56,19 @@ public class ConcertDAO {
 
             }
         return null;
+    }
+
+    public void displayConcerts()
+    {
+        System.out.println(concertList.size());
+
+        for(int i=0;i<concertList.size();i++) {
+            System.out.println(concertList.get(i).getName());
+            System.out.print(" ");
+            System.out.print(concertList.get(i).getData());
+            System.out.print(" ");
+            System.out.print(concertList.get(i).getDescription());
+        }
     }
 
 }

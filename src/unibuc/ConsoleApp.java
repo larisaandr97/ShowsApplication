@@ -3,9 +3,7 @@ package unibuc;
 import com.sun.source.tree.WhileLoopTree;
 import unibuc.DAO.ClientDAO;
 import unibuc.DAO.MovieDAO;
-import unibuc.Domain.Client;
-import unibuc.Domain.Movie;
-import unibuc.Domain.Location;
+import unibuc.Domain.*;
 import unibuc.Service.AdminService;
 import unibuc.Service.ClientService;
 
@@ -140,7 +138,7 @@ public class ConsoleApp {
     public void executeAdminOptionMenuClientEdit(int option) {
         int done=0;
         switch (option) {
-            case 1:
+            case 2:
                 done=0;
                 System.out.println("Introduce the name of the client: ");
                 while(done==0) {
@@ -153,37 +151,28 @@ public class ConsoleApp {
                 }
                 showAdminInitialMenu();
                 break;
-            case 2:
+            case 3:
                 // list entities
 
                 done=0;
-                System.out.println("Introduce the name of the location;");
+                System.out.println("Introduce the name of the client;");
                 while(done==0) {
                     keyboard.nextLine();
-                    String locName = keyboard.nextLine();
-                    Location locFound=clientService.getLocationDAO().searchLocation(locName);
-                    if (locFound != null)
+                    String clientName = keyboard.nextLine();
+                    Client clientFound=clientService.getClientDAO().searchClient(clientName);
+                    if (clientFound != null)
                     {
-                        clientService.getMovieDao().searchMovieInLoc(locName); done=1;}
-                    else System.out.println("This location doesn't exist.");
+                        clientService.getClientDAO().deleteClient(clientName); done=1;}
+                    else System.out.println("This client doesn't exist. Try typing again the name.");
                 }
-                showClientOptionMenu();
+                showAdminInitialMenu();
                 break;
-            case 3:
-                System.out.println("Introduce the name of the category;");
-                while(done==0) {
-                    keyboard.nextLine();
-                    String catName = keyboard.nextLine();
-                    boolean found=clientService.getMovieDao().searchMovieOfCategory(catName);
-                    if (found)
-                    {
-                        done=1;}
-                    else System.out.println("Try again typing a category.");
-                }
-                showClientOptionMenu();
+            case 1:
+                clientService.getClientDAO().displayClients();
+                showAdminInitialMenuClientEdit();
                 break;
             case 4:
-                System.exit(0);
+                showAdminInitialMenu();
         }
     }
 
@@ -201,9 +190,56 @@ public class ConsoleApp {
 
     public void executeAdminOptionMenuShowsEdit(int option)
     {
-        int done=0;
+        /*System.out.println("Menu");
+        System.out.println("1. Movies");
+        System.out.println("2. Concerts");
+        System.out.println("3. Theatre shows");
+        System.out.println("4.Go back to initial menu.");
+        int option= readOption(3);*/
+        int done;
         switch (option){
             case 1:
+                System.out.println("Movies: ");
+                clientService.getMovieDao().displayMovies();
+                System.out.println("Concerts: ");
+                clientService.getConcertDAO().displayConcerts();
+                System.out.println("Theatres: ");
+                clientService.getTheatreDAO().displayTheatres();
+                showAdminInitialMenuShowsEdit();
+                break;
+            case 2:
+                done=0;
+                System.out.println("Introduce the name of the show;");
+                while(done==0) {
+                    keyboard.nextLine();
+                    String showName = keyboard.nextLine();
+                    Movie movieFound=clientService.getMovieDao().searchMovie(showName);
+                    Concert concertFound=clientService.getConcertDAO().searchConcert(showName);
+                    Theatre theatreFound=clientService.getTheatreDAO().searchTheatre(showName);
+                    if (movieFound != null)
+                    {
+                        System.out.println("Movies found:");
+                        movieFound.displayDetails();
+                        done=1;
+                    }
+                    if (concertFound != null)
+                    {
+                            System.out.println("Concerts found:");
+                            concertFound.displayDetails();
+                            done=1;
+                    }
+                    if (theatreFound != null)
+                    {
+                        System.out.println("Theatres found:");
+                        theatreFound.displayDetails();
+                        done=1;
+                    }
+                if(done==0)
+                    System.out.println("This show doesn't exist. Try typing again the name.");
+                }
+                showAdminInitialMenu();
+                break;
+
 
         }
 
